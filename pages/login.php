@@ -1,30 +1,57 @@
 <?php
-session_start();
-require_once '../includes/db.php';
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/helpers.php';
+require_once __DIR__ . '/../includes/auth.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? '';
+if (current_user()) {
+    redirect('/index.php');
+}
+
+$error = null;
+
+if (is_post()) {
+    $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
+    $token = $_POST['csrf'] ?? '';
 
-    $stmt = $pdo->prepare("SELECT * FROM utenti WHERE username = ?");
-    $stmt->execute([$username]);
-    $user = $stmt->fetch();
-
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['utente'] = $user;
-        header("Location: dashboard.php");
-        exit;
+    if (!csrf_check($token)) {
+        $error = 'Token CSRF non valido.';
     } else {
-        $errore = "Credenziali non valide";
+        $stmt = $pdo->prepare('SELECT id, username, password, ruolo FROM utenti WHERE username = ? LIMIT 1');
+        $stmt->execute([$username]);
+        $user = $stmt->fetch();
+
+        if ($user && password_verify($password, $user['password'])) {
+            session_regenerate_id(true);
+            $_SESSION['user'] = [
+                'id' => $user['id'],
+                'username' => $user['username'],
+                'ruolo' => $user['ruolo'],
+            ];
+            redirect('/index.php');
+        } else {
+            $error = 'Credenziali non valide.';
+        }
     }
 }
 ?>
-<?php include '../includes/header.php'; ?>
-<h2>Login</h2>
-<form method="post">
-    <label>Username: <input type="text" name="username" required></label><br>
-    <label>Password: <input type="password" name="password" required></label><br>
-    <button type="submit">Accedi</button>
-</form>
-<?php if (isset($errore)) echo "<p style='color:red;'>$errore</p>"; ?>
-<?php include '../includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/header.php'; ?>
+<main class="container">
+    <h1>Accesso</h1>
+    <?php if ($error): ?>
+        <div class="alert alert-danger"><?= sanitize($error) ?></div>
+    <?php endif; ?>
+    <form method="post" action="">
+        <input type="hidden" name="csrf" value="<?= csrf_token(); ?>">
+        <div class="form-group">
+            <label>Username</label>
+            <input name="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input name="password" type="password" class="form-control" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Entra</button>
+    </form>
+</main>
+<?php include __DIR__ . '/../includes/footer.php'; ?>
