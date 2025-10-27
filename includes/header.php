@@ -17,19 +17,23 @@ $user = current_user();
 <body>
 <header class="topbar">
     <div class="brand"><a href="/index.php"><?= sanitize(APP_NAME) ?></a></div>
-    <nav class="nav">
-        <a href="/pages/clienti/index.php">Clienti</a>
-        <a href="/pages/tende/index.php">Tende</a>
-        <a href="/pages/attrezzatura/index.php">Attrezzatura</a>
-        <a href="/pages/ordini/index.php">Ordini</a>
-        <?php if ($user): ?>
-            <span class="user">Ciao, <?= sanitize($user['username']) ?> (<?= sanitize($user['ruolo']) ?>)</span>
-            <a href="/pages/logout.php">Logout</a>
-        <?php else: ?>
-            <a href="/pages/login.php">Login</a>
-        <?php endif; ?>
-    </nav>
+<nav class="nav">
+    <a href="/pages/clienti/index.php">Clienti</a>
+    <a href="/pages/tende/index.php">Tende</a>
+    <a href="/pages/attrezzatura/index.php">Attrezzatura</a>
+    <a href="/pages/ordini/index.php">Ordini</a>
+    <a href="/pages/veicoli/index.php">Veicoli</a>
+    <a href="/pages/operai/index.php">Operai</a>
+    <a href="/pages/assegnazioni/index.php">Assegnazioni</a>
+    <?php if ($user): ?>
+        <span class="user">Ciao, <?= sanitize($user['username']) ?> (<?= sanitize($user['ruolo']) ?>)</span>
+        <a href="/pages/logout.php">Logout</a>
+    <?php else: ?>
+        <a href="/pages/login.php">Login</a>
+    <?php endif; ?>
+</nav>
 </header>
+
 
 
 
