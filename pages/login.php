@@ -26,7 +26,7 @@ if (is_post()) {
                 'username' => $user['username'],
                 'ruolo' => $user['ruolo'],
             ];
-            redirect('/index.php');
+            redirect('/gestionaletende/index.php');
         } else {
             $error = 'Credenziali non valide.';
         }
