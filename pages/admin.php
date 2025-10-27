@@ -9,7 +9,6 @@ if (!isset($_SESSION['utente']) || $_SESSION['utente']['ruolo'] !== 'admin') {
     exit;
 }
 
-// Modifica password
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modifica'])) {
     $id = $_POST['id'];
     $nuova_password = $_POST['nuova_password'];
@@ -20,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modifica'])) {
     echo "<p>Password aggiornata per l'utente ID $id</p>";
 }
 
-// Visualizza utenti
 $utenti = $pdo->query("SELECT id, username, ruolo FROM utenti")->fetchAll();
 ?>
 
