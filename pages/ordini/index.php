@@ -28,10 +28,11 @@ $ordini = $stmt->fetchAll();
                 <td><?= sanitize($o['data_ordine']) ?></td>
                 <td><?= sanitize($o['tipo']) ?></td>
                 <td><?= sanitize($o['stato']) ?></td>
-                <td>
-                    <a href="modifica.php?id=<?= (int)$o['id'] ?>">Modifica</a> |
-                    <a href="elimina.php?id=<?= (int)$o['id'] ?>" onclick="return confirm('Eliminare ordine?');">Elimina</a>
-                </td>
+<td>
+    <a href="dettaglio.php?id=<?= (int)$o['id'] ?>">Dettaglio</a> |
+    <a href="modifica.php?id=<?= (int)$o['id'] ?>">Modifica</a> |
+    <a href="elimina.php?id=<?= (int)$o['id'] ?>" onclick="return confirm('Eliminare ordine?');">Elimina</a>
+</td>
             </tr>
         <?php endforeach; ?>
         </tbody>
