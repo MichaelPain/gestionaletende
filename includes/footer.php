@@ -1,6 +1,5 @@
-</main>
-<footer>
-    <p>&copy; 2025 Gestionale Tende</p>
+<footer class="footer">
+    <small>&copy; <?= date('Y') ?> Gestionale Tende</small>
 </footer>
 </body>
 </html>
