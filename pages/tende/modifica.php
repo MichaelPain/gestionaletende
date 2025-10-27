@@ -1,7 +1,5 @@
 <?php
-require_once __DIR__ . '/../../includes/db.php';
-require_once __DIR__ . '/../../includes/helpers.php';
-require_once __DIR__ . '/../../includes/auth.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
 require_login();
 
 $id = (int)($_GET['id'] ?? 0);
