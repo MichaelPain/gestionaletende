@@ -4,14 +4,30 @@ require_login();
 
 $id = (int)($_GET['id'] ?? 0);
 
-// Controlla se la tenda è usata in ordini o assegnazioni
-$check1 = $pdo->prepare("SELECT COUNT(*) FROM ordini_tende WHERE id_tenda = ?");
-$check1->execute([$id]);
-$check2 = $pdo->prepare("SELECT COUNT(*) FROM assegnazioni WHERE id_tenda = ?");
-$check2->execute([$id]);
+// Controlla se la tenda è usata in ordini attivi
+$check = $pdo->prepare("
+    SELECT COUNT(*) 
+    FROM ordini_tende ot
+    JOIN ordini o ON ot.id_ordine = o.id
+    WHERE ot.id_tenda = ? 
+      AND o.stato IN ('bozza','confermato')
+");
+$check->execute([$id]);
+if ($check->fetchColumn() > 0) {
+    die("Impossibile eliminare: la tenda è collegata a ordini attivi.");
+}
 
-if ($check1->fetchColumn() > 0 || $check2->fetchColumn() > 0) {
-    die("Impossibile eliminare: la tenda è collegata a ordini o assegnazioni.");
+// Controlla se la tenda è usata in assegnazioni collegate a ordini attivi
+$check2 = $pdo->prepare("
+    SELECT COUNT(*) 
+    FROM assegnazioni a
+    JOIN ordini o ON a.id_ordine = o.id
+    WHERE a.id_tenda = ? 
+      AND o.stato IN ('bozza','confermato')
+");
+$check2->execute([$id]);
+if ($check2->fetchColumn() > 0) {
+    die("Impossibile eliminare: la tenda è collegata a assegnazioni di ordini attivi.");
 }
 
 $stmt = $pdo->prepare("DELETE FROM tende WHERE id = ?");
