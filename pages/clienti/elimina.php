@@ -4,11 +4,16 @@ require_login();
 
 $id = (int)($_GET['id'] ?? 0);
 
-// Verifica se il cliente ha ordini collegati
-$check = $pdo->prepare("SELECT COUNT(*) FROM ordini WHERE id_cliente = ?");
+// Verifica se il cliente ha ordini attivi
+$check = $pdo->prepare("
+    SELECT COUNT(*) 
+    FROM ordini 
+    WHERE id_cliente = ? 
+      AND stato IN ('bozza','confermato')
+");
 $check->execute([$id]);
 if ($check->fetchColumn() > 0) {
-    die("Impossibile eliminare: il cliente ha ordini associati.");
+    die("Impossibile eliminare: il cliente ha ordini attivi (bozza o confermati).");
 }
 
 $stmt = $pdo->prepare("DELETE FROM clienti WHERE id = ?");
