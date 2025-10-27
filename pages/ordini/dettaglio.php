@@ -53,24 +53,50 @@ $assegnazioni = $stmt->fetchAll();
 
     <h2>Righe ordine (tende)</h2>
     <?php if ($tende): ?>
-    <table class="table">
-        <thead><tr><th>Tenda</th><th>Quantità</th></tr></thead>
-        <tbody>
-        <?php foreach ($tende as $r): ?>
-            <tr>
-                <td><?= sanitize($r['nome']) ?></td>
-                <td><?= (int)$r['quantita'] ?></td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+        <table class="table">
+            <thead><tr><th>Tenda</th><th>Quantità</th></tr></thead>
+            <tbody>
+            <?php foreach ($tende as $r): ?>
+                <tr>
+                    <td><?= sanitize($r['nome']) ?></td>
+                    <td><?= (int)$r['quantita'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
     <?php else: ?>
         <p>Nessuna tenda associata.</p>
     <?php endif; ?>
 
     <h2>Assegnazioni</h2>
     <?php if ($assegnazioni): ?>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Veicolo</th>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Veicolo</th>
+                    <th>Operaio</th>
+                    <th>Tenda</th>
+                    <th>Quantità tenda</th>
+                    <th>Attrezzatura</th>
+                    <th>Quantità attrezzatura</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($assegnazioni as $a): ?>
+                <tr>
+                    <td><?= sanitize($a['targa'] ?? '-') ?></td>
+                    <td><?= sanitize(trim(($a['op operaio_cognome'] ?? '') . ' ' . ($a['op operaio_nome'] ?? ''))) ?></td>
+                    <td><?= sanitize($a['tenda'] ?? '-') ?></td>
+                    <td><?= (int)($a['quantita_tenda'] ?? 0) ?></td>
+                    <td><?= sanitize($a['attrezzatura'] ?? '-') ?></td>
+                    <td><?= (int)($a['quantita_attrezzatura'] ?? 0) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>Nessuna assegnazione presente.</p>
+    <?php endif; ?>
+</main>
+<?php include __DIR__ . '/../../includes/footer.php'; ?>
+
