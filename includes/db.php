@@ -23,3 +23,4 @@ try {
     error_log('DB connection failed: ' . $e->getMessage());
     http_response_code(500);
     die('Errore di connessione al database.');
+}
