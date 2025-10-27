@@ -11,9 +11,6 @@ if (is_post()) {
         $data = [
             'nome' => trim($_POST['nome'] ?? ''),
             'descrizione' => trim($_POST['descrizione'] ?? ''),
-            'tipo' => trim($_POST['tipo'] ?? ''),
-            'prezzo_acquisto' => (float)($_POST['prezzo_acquisto'] ?? 0),
-            'prezzo_noleggio' => (float)($_POST['prezzo_noleggio'] ?? 0),
             'quantita_disponibile' => (int)($_POST['quantita_disponibile'] ?? 0),
         ];
         if ($data['nome'] === '') {
@@ -21,8 +18,8 @@ if (is_post()) {
         } elseif ($data['quantita_disponibile'] < 0) {
             $error = 'La quantità non può essere negativa.';
         } else {
-            $stmt = $pdo->prepare("INSERT INTO attrezzatura (nome, descrizione, tipo, prezzo_acquisto, prezzo_noleggio, quantita_disponibile) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$data['nome'], $data['descrizione'], $data['tipo'], $data['prezzo_acquisto'], $data['prezzo_noleggio'], $data['quantita_disponibile']]);
+            $stmt = $pdo->prepare("INSERT INTO attrezzatura (nome, descrizione, quantita_disponibile) VALUES (?, ?, ?)");
+            $stmt->execute([$data['nome'], $data['descrizione'], $data['quantita_disponibile']]);
 
             $u = current_user();
             $log = $pdo->prepare("INSERT INTO audit_log (utente_id, azione, data_ora) VALUES (?, ?, NOW())");
@@ -41,9 +38,6 @@ if (is_post()) {
         <input type="hidden" name="csrf" value="<?= csrf_token(); ?>">
         <div class="form-group"><label>Nome</label><input name="nome" required></div>
         <div class="form-group"><label>Descrizione</label><input name="descrizione"></div>
-        <div class="form-group"><label>Tipo</label><input name="tipo"></div>
-        <div class="form-group"><label>Prezzo acquisto</label><input name="prezzo_acquisto" type="number" step="0.01" min="0" value="0"></div>
-        <div class="form-group"><label>Prezzo noleggio</label><input name="prezzo_noleggio" type="number" step="0.01" min="0" value="0"></div>
         <div class="form-group"><label>Quantità disponibile</label><input name="quantita_disponibile" type="number" min="0" value="0"></div>
         <button class="btn btn-primary" type="submit">Salva</button>
         <a class="btn" href="/pages/attrezzatura/index.php">Annulla</a>
