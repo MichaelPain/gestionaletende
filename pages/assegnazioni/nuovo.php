@@ -80,9 +80,6 @@ $attrezzatura = $pdo->query("SELECT id, nome FROM attrezzatura ORDER BY nome")->
             <select name="id_attrezzatura"><option value="">-- Nessuna --</option>
                 <?php foreach ($attrezzatura as $a): ?>
                     <option value="<?= (int)$a['id'] ?>"><?= sanitize($a['nome']) ?></option>
-                <?php
-                <?php foreach ($attrezzatura as $a): ?>
-                    <option value="<?= (int)$a['id'] ?>"><?= sanitize($a['nome']) ?></option>
                 <?php endforeach; ?>
             </select>
             <input type="number" name="quantita_attrezzatura" min="0" value="0">
