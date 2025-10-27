@@ -81,3 +81,14 @@ $attrezzatura = $pdo->query("SELECT id, nome FROM attrezzatura ORDER BY nome")->
                 <?php foreach ($attrezzatura as $a): ?>
                     <option value="<?= (int)$a['id'] ?>"><?= sanitize($a['nome']) ?></option>
                 <?php
+                <?php foreach ($attrezzatura as $a): ?>
+                    <option value="<?= (int)$a['id'] ?>"><?= sanitize($a['nome']) ?></option>
+                <?php endforeach; ?>
+            </select>
+            <input type="number" name="quantita_attrezzatura" min="0" value="0">
+        </div>
+        <button class="btn btn-primary" type="submit">Salva</button>
+        <a class="btn" href="index.php">Annulla</a>
+    </form>
+</main>
+<?php include __DIR__ . '/../../includes/footer.php'; ?>
