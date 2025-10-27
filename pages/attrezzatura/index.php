@@ -23,15 +23,13 @@ $items = $stmt->fetchAll();
         <a class="btn btn-primary" href="/pages/attrezzatura/nuovo.php">Nuovo articolo</a>
     </div>
     <table class="table">
-        <thead><tr><th>Nome</th><th>Tipo</th><th>Disponibile</th><th>Prezzo acquisto</th><th>Prezzo noleggio</th><th>Azioni</th></tr></thead>
+        <thead><tr><th>Nome</th><th>Descrizione</th><th>Disponibile</th><th>Azioni</th></tr></thead>
         <tbody>
         <?php foreach ($items as $i): ?>
             <tr>
                 <td><?= sanitize($i['nome'] ?? '') ?></td>
-                <td><?= sanitize($i['tipo'] ?? '') ?></td>
+                <td><?= sanitize($i['descrizione'] ?? '') ?></td>
                 <td><?= (int)($i['quantita_disponibile'] ?? 0) ?></td>
-                <td><?= sanitize($i['prezzo_acquisto'] ?? '') ?></td>
-                <td><?= sanitize($i['prezzo_noleggio'] ?? '') ?></td>
                 <td>
                     <a class="btn btn-sm" href="/pages/attrezzatura/modifica.php?id=<?= (int)$i['id'] ?>">Modifica</a>
                     <a class="btn btn-sm btn-danger" href="/pages/attrezzatura/elimina.php?id=<?= (int)$i['id'] ?>" onclick="return confirm('Eliminare questo articolo?');">Elimina</a>
