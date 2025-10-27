@@ -18,10 +18,10 @@ $user = current_user();
 <header class="topbar">
     <div class="brand"><a href="/index.php"><?= sanitize(APP_NAME) ?></a></div>
     <nav class="nav">
-        <a href="/pages/clienti/index.php">Clienti</a>
-        <a href="/pages/tende/index.php">Tende</a>
-        <a href="/pages/attrezzatura/index.php">Attrezzatura</a>
-        <a href="/pages/ordini/index.php">Ordini</a>
+        <a href="/gestionaletende/pages/clienti/index.php">Clienti</a>
+        <a href="/gestionaletende/pages/tende/index.php">Tende</a>
+        <a href="/gestionaletende/pages/attrezzatura/index.php">Attrezzatura</a>
+        <a href="/gestionaletende/pages/ordini/index.php">Ordini</a>
         <?php if ($user): ?>
             <span class="user">Ciao, <?= sanitize($user['username']) ?> (<?= sanitize($user['ruolo']) ?>)</span>
             <a href="/pages/logout.php">Logout</a>
@@ -30,4 +30,5 @@ $user = current_user();
         <?php endif; ?>
     </nav>
 </header>
+
 
