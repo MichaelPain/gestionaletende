@@ -1,4 +1,6 @@
 <?php
+// includes/header.php
+require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/../config.php';
 $user = current_user();
