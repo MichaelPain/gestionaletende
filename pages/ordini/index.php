@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../includes/bootstrap.php';
 require_login();
 
 $stmt = $pdo->query("
-    SELECT o.id, o.data_ordine, o.stato, o.tipo, c.nome AS cliente
+    SELECT o.id, o.data_ordine, o.tipo, o.stato, c.nome AS cliente
     FROM ordini o
     JOIN clienti c ON o.id_cliente = c.id
     ORDER BY o.data_ordine DESC
@@ -29,7 +29,6 @@ $ordini = $stmt->fetchAll();
                 <td><?= sanitize($o['tipo']) ?></td>
                 <td><?= sanitize($o['stato']) ?></td>
                 <td>
-                    <a href="dettaglio.php?id=<?= (int)$o['id'] ?>">Dettaglio</a> |
                     <a href="modifica.php?id=<?= (int)$o['id'] ?>">Modifica</a> |
                     <a href="elimina.php?id=<?= (int)$o['id'] ?>" onclick="return confirm('Eliminare ordine?');">Elimina</a>
                 </td>
