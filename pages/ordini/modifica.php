@@ -94,4 +94,12 @@ $tende = $pdo->query("SELECT id, nome FROM tende ORDER BY nome")->fetchAll();
         <input type="hidden" name="csrf" value="<?= csrf_token(); ?>">
         <input type="hidden" name="add_tenda" value="1">
         <select name="id_tenda">
-            <?php foreach ($tende as $t
+            <?php foreach ($tende as $t): ?>
+                <option value="<?= (int)$t['id'] ?>"><?= sanitize($t['nome']) ?></option>
+            <?php endforeach; ?>
+        </select>
+        <input type="number" name="quantita" min="1" value="1">
+        <button class="btn btn-secondary" type="submit">Aggiungi</button>
+    </form>
+</main>
+<?php include __DIR__ . '/../../includes/footer.php'; ?>
