@@ -36,7 +36,12 @@ if (is_post()) {
         <input type="hidden" name="csrf" value="<?= csrf_token(); ?>">
         <div class="form-group"><label>Targa</label><input name="targa" required></div>
         <div class="form-group"><label>Modello</label><input name="modello" required></div>
-        <div class="form-group"><label>Tipo</label><input name="tipo"></div>
+<div class="form-group"><label>Tipo</label>
+    <select name="tipo" required>
+        <option value="Furgone">Furgone</option>
+        <option value="Altro">Altro</option>
+    </select>
+</div>
         <div class="form-group"><label>Capacità</label><input name="capacita" type="number" min="0" value="0"></div>
         <button class="btn btn-primary" type="submit">Salva</button>
         <a class="btn" href="index.php">Annulla</a>
