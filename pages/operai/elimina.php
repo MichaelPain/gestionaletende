@@ -4,11 +4,17 @@ require_login();
 
 $id = (int)($_GET['id'] ?? 0);
 
-// Controlla se l'operaio è usato in assegnazioni
-$check = $pdo->prepare("SELECT COUNT(*) FROM assegnazioni WHERE id_operaio = ?");
+// Controlla se l'operaio è usato in assegnazioni di ordini attivi
+$check = $pdo->prepare("
+    SELECT COUNT(*) 
+    FROM assegnazioni a
+    JOIN ordini o ON a.id_ordine = o.id
+    WHERE a.id_operaio = ? 
+      AND o.stato IN ('bozza','confermato')
+");
 $check->execute([$id]);
 if ($check->fetchColumn() > 0) {
-    die("Impossibile eliminare: l'operaio è collegato ad assegnazioni.");
+    die("Impossibile eliminare: l'operaio è collegato ad assegnazioni di ordini attivi.");
 }
 
 $stmt = $pdo->prepare("DELETE FROM operai WHERE id = ?");
