@@ -1,0 +1,101 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #004d66;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+nav {
+    background-color: #e6e6e6;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #004d66;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #0099cc;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #004d66;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #cccccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #e6f2ff;
+}
+
+button {
+    background-color: #004d66;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #007399;
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0;
+    box-sizing: border-box;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+h2, h3 {
+    color: #004d66;
+}
